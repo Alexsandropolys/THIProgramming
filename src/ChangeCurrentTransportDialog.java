@@ -35,12 +35,18 @@ public class ChangeCurrentTransportDialog extends JDialog implements ActionListe
     public void actionPerformed(ActionEvent e) {
         Route r = new Route(route.getText());
         current_transport.setRoute(r);
-        current_transport.setNumber(Integer.parseInt(number.getText()));
-        current_transport.setPrice(Integer.parseInt(price.getText()));
-        solver.getTransports().remove(form.getTransportList().getSelectedIndex());
-        solver.addTransport(current_transport);
-        form.getTransportList().clearSelection();
-        form.getTransportList().setListData(solver.getTransports().toArray());
-        this.dispose();
+
+        int number = Integer.parseInt(this.number.getText());
+        int price = Integer.parseInt(this.price.getText());
+        if (number >= 0 && price > 0) {
+            current_transport.setNumber(number);
+            current_transport.setPrice(price);
+            solver.getTransports().remove(form.getTransportList().getSelectedIndex());
+            solver.addTransport(current_transport);
+            form.getTransportList().clearSelection();
+            form.getTransportList().setListData(solver.getTransports().toArray());
+        }
+        dispose();
+
     }
 }
